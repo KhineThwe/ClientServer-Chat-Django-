@@ -1,0 +1,9 @@
+Postgresql db:
+CREATE USER django WITH PASSWORD 'password';
+\t ---> to show list of db
+\dt
+\du ---> list all users
+-----------------------------------------------------
+For Postgresql ---> pip install psycopg2
+------------------------------------------------
+pip freeze > requirements.txt
