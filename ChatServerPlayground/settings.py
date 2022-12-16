@@ -25,6 +25,10 @@ SECRET_KEY = 'django-insecure-oev7sg++*%2szmjs083%o4%#p5=gs!zeu2+y99w&j*wxay+##a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # During development only
+
+
 ALLOWED_HOSTS = []
 
 
@@ -52,6 +56,12 @@ MIDDLEWARE = [
 ]
 
 ROOT_URLCONF = 'ChatServerPlayground.urls'
+
+AUTH_USER_MODEL = "account.Account"
+AUTHENTICATION_BACKENDS = ( 
+    'django.contrib.auth.backends.AllowAllUsersModelBackend', 
+    'account.backends.CaseInsensitiveModelBackend',
+    )
 
 TEMPLATES = [
     {
