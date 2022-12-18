@@ -5,7 +5,7 @@
         <h5 class="mr-3 font-width-normal justify-content-start">
             <a class="p-2 text-dark" href="{% url 'home'%}">Home</a>
         </h5>
-        <form action="" class="search-bar justify-content-start">
+        <form action="" class="search-bar justify-content-start" onsubmit="return executeQuery();">
             <input type="text" class="form-control" name="q" id="id_q_large" placeholder="Search....">
         </form>
         <div class="d-flex flex-row-reverse flex-grow-1">
@@ -41,10 +41,11 @@
                     <!--account-->
 
                      <div class="btn-group dropleft">
-                        <img white="40" height="40" alt="profile image" src="{% static 'images/dummy_image.png'%}" class="account-image rounded-circle m-auto d-block dropdown-toggle"
+                        <img white="40" height="40" alt="profile image" src="{{request.user.profile_image.url}}"
+                        class="account-image rounded-circle m-auto d-block dropdown-toggle"
                         id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="id_profile_links">
-                            <a href="" class="dropdown-item">Account</a>
+                            <a class="dropdown-item" href="{% url 'account:view' user_id=request.user.id %}">Account</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>
                      </div>
@@ -68,7 +69,7 @@
             <a class="p-2 text-dark" href="{% url 'home'%}">Home</a>
         </h5>
         <!-- row 2-->
-        <form action="" class="search-bar justify-content-start">
+        <form action="" class="search-bar justify-content-start" onsubmit="return executeQuery();">
             <input type="text" class="form-control" name="q" id="id_q_small" placeholder="Search....">
         </form>
         <!-- row 3-->
@@ -80,10 +81,10 @@
                     <!--account-->
 
                      <div class="btn-group dropleft">
-                        <img white="40" height="40" alt="profile image" src="{% static 'images/dummy_image.png'%}" class="account-image rounded-circle m-auto d-block dropdown-toggle"
+                        <img white="40" height="40" alt="profile image" src="{{request.user.profile_image.url}}" class="account-image rounded-circle m-auto d-block dropdown-toggle"
                         id="id_profile_links" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         <div class="dropdown-menu" aria-labelledby="id_profile_links">
-                            <a href="" class="dropdown-item">Account</a>
+                            <a class="dropdown-item" href="{% url 'account:view' user_id=request.user.id %}">Account</a>
                             <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
                         </div>
                      </div>
@@ -100,3 +101,15 @@
     
 
 </div>
+<script type="text/javascript">
+	function executeQuery() {
+		var query = ""
+		query = document.getElementById('id_q_small').value;
+		if (query == ""){
+			query = document.getElementById('id_q_large').value;
+		}
+	    window.location.replace("{% url 'search' %}?q=" + query)
+	    return false
+	}
+
+</script>
